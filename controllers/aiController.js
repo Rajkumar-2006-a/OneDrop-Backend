@@ -153,7 +153,7 @@ const aiController = {
         messages: [
           {
             role: "system",
-            content: "You are a helpful assistant for a Blood Donation platform. Please answer the following user query strictly in the context of blood donation, blood types, or health. Do not assume 'A+' or 'O-' refers to grades or allergy tests; they are blood groups."
+            content: "You are a helpful navigational and conversational assistant for a Blood Donation platform. Please answer the user strictly in plain, conversational text. NEVER output JSON. NEVER output markdown code blocks. Always respond warmly as a human assistant."
           },
           {
             role: "user",
@@ -164,7 +164,7 @@ const aiController = {
       });
 
       return res.json({
-        response_message: aiReplyCompletion.choices[0]?.message?.content || "Sorry, I could not process your request."
+        response_message: aiReplyCompletion.choices[0]?.message?.content?.replace(/```json/g, '').replace(/```/g, '').trim() || "Sorry, I could not process your request."
       });
 
     } catch (error) {
